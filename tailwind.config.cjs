@@ -5,6 +5,14 @@ module.exports = {
   darkMode: 'selector',
   content: ['./templates/**/*.html'],
   theme: {
+    fontFamily: {
+      mono: [
+        '"JetBrains Mono"',
+        {
+          fontFeatureSettings: '"zero"'
+        }
+      ]
+    },
     extend: {
       backgroundImage: {
         egg: "url('/assets/egg-bg.svg')",

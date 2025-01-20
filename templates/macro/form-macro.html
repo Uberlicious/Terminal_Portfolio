@@ -1,0 +1,9 @@
+{% macro terminalform(arg) %}
+<form
+    hx-post="/api/commands"
+    hx-target="#command-response"
+    hx-swap="outerHTML"
+    hx-trigger="{{arg}}"
+    class="flex flex-col leading-6 text-md font-medium"
+>
+{% endmacro %}

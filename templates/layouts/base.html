@@ -1,23 +1,26 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" id="root" class="cat">
   <head>
     <link href="/assets/main.css" rel="stylesheet" />
-    <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
-    <!-- Allow any inheriting page to set it's own title -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'> -->
     <title>{% block title %}{{ title }}{% endblock %}</title>
 
-    <!-- htmx from the unpkg CDN - your mileage may vary -->
+    <!-- htmx from the unpkg CDN -->
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 
-    <!-- Allow any inheriting page to extend head with additional assets -->
     {% block head %}{% endblock %}
   </head>
-  <body
-    class="h-screen w-screen bg-gray-100 bg-egg bg-cover bg-center bg-no-repeat bg-origin-content backdrop-blur-[255px] dark:bg-gray-700"
-  >
+  <body class="bg-[--color-bg] p-2 font-mono overflow-y-auto ">
+      <label class="absolute inline-flex justify-between items-center group top-2 right-2 text-xl text-sky-500 dark:text-sky-200">
+        Dark
+        <input type="checkbox" class="peer sr-only" checked />
+        <span
+            hx-on:click="htmx.toggleClass(htmx.find('#root'), 'cat')"
+            class="w-14 h-8 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 after:w-6 after:h-6 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1 group-hover:peer-checked:after:translate-x-5"></span>
+      </label>
+
     <div id="content">
-      <!-- Inheriting pages will have their content rendered here, similar to app root in React, Angular, etc. -->
-      {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
   </body>
 </html>

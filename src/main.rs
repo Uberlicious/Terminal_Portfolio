@@ -1,3 +1,4 @@
+use core::fmt;
 use std::sync::{Arc, Mutex};
 
 use anyhow::Context;
@@ -15,7 +16,7 @@ use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 struct AppState {
-    todos: Mutex<Vec<String>>,
+    command_history: Mutex<Vec<String>>,
 }
 
 #[tokio::main]
@@ -31,19 +32,17 @@ async fn main() -> anyhow::Result<()> {
     info!("initializing router...");
 
     let app_state = Arc::new(AppState {
-        todos: Mutex::new(vec![]),
+        command_history: Mutex::new(vec![]),
     });
 
     let api_router = Router::new()
-        .route("/hello", get(hello_from_the_server))
-        .route("/todos", post(add_todo))
+        .route("/commands", post(commands))
         .with_state(app_state);
 
     let assets_path = std::env::current_dir().unwrap();
     let router = Router::new()
         .nest("/api", api_router)
-        .route("/", get(hello))
-        .route("/another-page", get(another_page))
+        .route("/", get(terminal))
         .nest_service(
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
@@ -61,16 +60,18 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-async fn hello() -> impl IntoResponse {
-    info!("->> {:<12} - hello", "HANDLER");
+async fn terminal() -> impl IntoResponse {
+    info!("->> {:<12} - terminal", "HANDLER");
 
-    let template = HelloTemplate {};
+    let template = TerminalTemplate { init: true };
     HtmlTemplate(template)
 }
 
-#[derive(Template)]
-#[template(path = "pages/hello.html")]
-struct HelloTemplate;
+#[derive(Template, Default)]
+#[template(path = "pages/terminal.html")]
+struct TerminalTemplate {
+    init: bool,
+}
 
 struct HtmlTemplate<T>(T);
 
@@ -90,43 +91,53 @@ where
     }
 }
 
-async fn another_page() -> impl IntoResponse {
-    info!("->> {:<12} - another-page", "HANDLER");
-    let template = AnotherPageTemplate {};
-    HtmlTemplate(template)
-}
-
-#[derive(Template)]
-#[template(path = "pages/another-page.html")]
-struct AnotherPageTemplate;
-
-async fn hello_from_the_server() -> &'static str {
+async fn _hello_from_the_server() -> &'static str {
     "Hello!"
 }
 
-#[derive(Template)]
-#[template(path = "components/todo-list.html")]
-struct TodoList {
-    todos: Vec<String>,
+#[derive(Template, Default)]
+#[template(path = "components/welcome.html")]
+struct Welcome {
+    init: bool,
 }
 
-#[derive(Deserialize)]
-struct TodoRequest {
-    todo: String,
+#[derive(Template, Default)]
+#[template(path = "components/term-line.html")]
+struct TermLine {
+    init: bool,
 }
 
-async fn add_todo(
+#[derive(Deserialize, Debug)]
+enum Command {
+    Welcome(String),
+}
+
+impl fmt::Display for Command {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+#[derive(Deserialize, Debug)]
+struct CommandRequest {
+    command: String,
+}
+
+async fn commands(
     State(state): State<Arc<AppState>>,
-    Form(todo): Form<TodoRequest>,
-) -> impl IntoResponse {
-    info!("->> {:<12} - add-todo", "HANDLER");
+    Form(command): Form<CommandRequest>,
+) -> Response {
+    info!("->> {:<12} - commands - {command:?}", "HANDLER");
 
-    let mut lock = state.todos.lock().unwrap();
-    lock.push(todo.todo);
+    let mut lock = state.command_history.lock().unwrap();
+    lock.push(command.command.clone());
 
-    let template = TodoList {
-        todos: lock.clone(),
-    };
+    let welcome = Welcome::default();
 
-    HtmlTemplate(template)
+    if command.command.to_lowercase() == "welcome" {
+        return HtmlTemplate(welcome).into_response();
+    }
+
+    let term = TermLine::default();
+    HtmlTemplate(term).into_response()
 }

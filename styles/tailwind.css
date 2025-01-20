@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src:
+        url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Bold.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    [class=''] {
+        --color-bg: #eff1f5;
+        --color-user: #9ca0b0;
+        --color-path: #1e66f5;
+        --color-arrow: #ea76cb;
+        --color-text: #4c4f69
+    }
+
+    [class~='cat'] {
+        --color-bg: #24273a;
+        --color-path: #8aadf4;
+        --color-user: #6e738d;
+        --color-arrow: #f5bde6;
+        --color-text: #cad3f5;
+    }
+}

@@ -1,0 +1,45 @@
+<div class="block">
+    {% if init %}
+    <form
+      hx-post="/api/commands"
+      hx-target="#command-response"
+      hx-swap="outerHTML"
+      hx-trigger="load"
+      class="flex flex-col leading-6 text-md font-medium"
+    >
+    {% else %}
+    <form
+      hx-post="/api/commands"
+      hx-target="#command-response"
+      hx-swap="outerHTML"
+      class="flex flex-col leading-6 text-md font-medium"
+    >
+    {% endif %}
+    <label for="command-input" class="inline-flex">
+        <div class="text-[--color-path]">~/guest</div>
+        <div class="relative text-[--color-user] left-2">[guest@terminal-portfolio]</div>
+    </label>
+    <div class="inline-flex text-[--color-text]">
+        <div class="relative align-middle text-[--color-arrow]">&GT;</div>
+        {% if init %}
+        <input
+            type="text"
+            name="command"
+            id="command"
+            class="relative w-full shadow-none ring-0 border-0 focus:ring-0 focus:shadow-none focus:border-0 p-0 left-2 caret-white bg-transparent"
+            autofocus
+            value="welcome"
+        />
+        {% else %}
+        <input
+            type="text"
+            name="command"
+            id="command"
+            class="relative w-full shadow-none ring-0 border-0 focus:ring-0 focus:shadow-none focus:border-0 p-0 left-2 caret-white bg-transparent"
+            autofocus
+        />
+        {% endif %}
+    </div>
+  </form>
+  <div id="command-response" />
+</div>
