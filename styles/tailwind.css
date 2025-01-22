@@ -18,7 +18,9 @@
         --color-user: #9ca0b0;
         --color-path: #1e66f5;
         --color-arrow: #ea76cb;
-        --color-text: #4c4f69
+        --color-text: #4c4f69;
+        --color-yellow: #df8e1d;
+        --color-green: #40a02b
     }
 
     [class~='cat'] {
@@ -27,5 +29,7 @@
         --color-user: #6e738d;
         --color-arrow: #f5bde6;
         --color-text: #cad3f5;
+        --color-yellow: #eed49f;
+        --color-green: #a6da95
     }
 }

@@ -67,6 +67,10 @@ async fn terminal() -> impl IntoResponse {
     HtmlTemplate(template)
 }
 
+// #[derive(Template)]
+// #[template(path = "components/neofetch.html", print = "all")]
+// struct Neofetch;
+
 #[derive(Template, Default)]
 #[template(path = "pages/terminal.html")]
 struct TerminalTemplate {

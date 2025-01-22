@@ -1,18 +1,22 @@
-<!-- prettier-ignore -->
 {% extends "layouts/base.html" %}
 
 {% block title %}Hello!{% endblock %}
 
 {% block content %}
-<div class="flex w-full p-2 flex-col flex-shrink-0">
-    {% include "components/term-line.html" %} {% endblock %}
-</div>
 
-<!-- <button
-  type="button"
-  hx-get="/api/welcome"
-  hx-swap="innerHtml"
-  class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
->
-  Say hello
-</button> -->
+
+<div class="h-screen flex">
+  <!-- Scrollable half -->
+  <div class="flex-1 flex">
+    <!-- Scrollable container -->
+    <div class="flex-1 overflow-y-scroll scroll-smooth focus:scroll-auto p-2">
+      {% include "components/term-line.html" %}
+    </div>
+  </div>
+  <!-- Fixed half -->
+  <div class="w-1/2 p-2 pt-6 justify-items-center content-center h-full border-l-2 border-[--color-user]">
+    <!-- Sidebar content -->
+      {% include "components/jm_50.html" %}
+  </div>
+</div>
+{% endblock %}
