@@ -3,7 +3,9 @@ content %}
 
 <div class="flex h-screen w-full">
   <!-- Scrollable half -->
-  <div class="flex w-1/2 flex-1 border-r-2 border-[--color-user]">
+  <div
+    class="flex w-1/2 flex-1 border-r-2 border-(--color-user) max-lg:border-0"
+  >
     <div
       hx-on:click="
           const commands = document.querySelectorAll('#command:last-of-type');
@@ -18,22 +20,24 @@ content %}
   </div>
 </div>
 <!-- Fixed half -->
-<div class="flex w-1/2 flex-1 overflow-hidden max-sm:hidden sm:justify-center">
-  <div class="flex">
-    <div
-      class="@container relative h-full w-1/2 flex-1 content-center justify-items-end p-2 pt-6 max-lg:hidden"
-    >
-      <!-- <div class="max-2xl:hidden">{% include "components/jm_full.html" %}</div> -->
-      <!-- <div class="@max-[480px]:hidden">
-        {% include "components/jm_70.html" %}
-      </div> -->
-      <div class="@max-[340px]:hidden">
-        {% include "components/jm_50.html" %}
-      </div>
+<div
+  class="@container/outer flex w-1/2 flex-1 justify-center overflow-hidden max-lg:hidden"
+>
+  <div
+    class="@container flex h-full w-full flex-1 justify-end p-2 pt-6 @max-[44.5rem]/outer:hidden"
+  >
+    <div class="content-center @max-[43.25rem]:hidden">
+      {% include "components/jm_full.html" %}
     </div>
-    <div class="left-0 flex-1 content-center p-3">
-      {% include "components/term-info.html" %}
+    <div class="content-center @max-[30rem]:hidden @min-[43.25rem]:hidden">
+      {% include "components/jm_70.html" %}
     </div>
+    <div class="content-center @max-[21.25rem]:hidden @min-[30rem]:hidden">
+      {% include "components/jm_50.html" %}
+    </div>
+  </div>
+  <div class="left-0 w-1/2 content-center p-3">
+    {% include "components/term-info.html" %}
   </div>
 </div>
 {% endblock %}

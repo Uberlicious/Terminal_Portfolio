@@ -12,13 +12,13 @@
 
     {% block head %}{% endblock %}
   </head>
-  <body class="bg-[--color-bg] p-2 font-mono overflow-y-clip ">
+  <body class="bg-(--color-bg) p-2 font-mono overflow-y-clip ">
       <label class="fixed inline-flex justify-between items-center group top-2 right-2 text-xl text-sky-500 dark:text-sky-200">
         Dark
         <input type="checkbox" class="peer sr-only" checked />
         <span
             hx-on:click="htmx.toggleClass(htmx.find('#root'), 'cat')"
-            class="w-14 h-8 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 after:w-6 after:h-6 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1 group-hover:peer-checked:after:translate-x-5"></span>
+            class="w-14 h-8 flex items-center shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 after:w-6 after:h-6 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1 peer-checked:group-hover:after:translate-x-5"></span>
       </label>
 
     <div id="content">

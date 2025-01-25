@@ -106,6 +106,12 @@ struct Welcome {
 }
 
 #[derive(Template, Default)]
+#[template(path = "components/help.html")]
+struct Help {
+    init: bool,
+}
+
+#[derive(Template, Default)]
 #[template(path = "components/term-line.html")]
 struct TermLine {
     init: bool,
@@ -140,6 +146,12 @@ async fn commands(
 
     if command.command.to_lowercase() == "welcome" {
         return HtmlTemplate(welcome).into_response();
+    }
+
+    let help = Help::default();
+
+    if command.command.to_lowercase() == "help" {
+        return HtmlTemplate(help).into_response();
     }
 
     let term = TermLine::default();
