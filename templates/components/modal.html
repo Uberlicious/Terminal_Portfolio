@@ -1,3 +1,4 @@
+{% if game.is_some() %}
 <div
   id="modal"
   hx-on:click="htmx.toggleClass(htmx.find('#modal'), 'hidden');htmx.remove(htmx.find('#game'));"
@@ -8,6 +9,7 @@
     id="modal_content"
     class="min-2xl mt-3 flex flex-col items-center justify-items-center rounded-lg border-2 border-solid bg-(--color-bg) p-4 shadow-xl"
   >
+    {% if game == Some(1) %}
     <h1 class="justify-self-center text-(--color-text)">Dieggle</h1>
     <iframe
       id="game"
@@ -20,6 +22,7 @@
     >
       <a href="https://uberlicious.itch.io/dieggle">Play Dieggle on itch.io</a>
     </iframe>
+    {% endif %}
     <div class="flex justify-center">
       <button
         id="game_close"
@@ -31,5 +34,4 @@
     </div>
   </div>
 </div>
-
-{% include "components/term-line.html" %}
+{% endif %} {% include "components/term-line.html" %}

@@ -65,7 +65,8 @@ async fn terminal() -> impl IntoResponse {
 
     let template = TerminalTemplate {
         init: true,
-        game: true,
+        modal: false,
+        game: None,
     };
     HtmlTemplate(template)
 }
@@ -74,7 +75,14 @@ async fn terminal() -> impl IntoResponse {
 #[template(path = "pages/terminal.html")]
 struct TerminalTemplate {
     init: bool,
-    game: bool,
+    modal: bool,
+    game: Option<u32>,
+}
+
+impl TerminalTemplate {
+    pub fn game_val(&self) -> Option<u32> {
+        self.game
+    }
 }
 
 struct HtmlTemplate<T>(T);
@@ -100,14 +108,20 @@ async fn _hello_from_the_server() -> &'static str {
 }
 
 #[derive(Template, Default)]
-#[template(path = "components/welcome.html")]
+#[template(path = "menus/welcome.html")]
 struct Welcome {
     init: bool,
 }
 
 #[derive(Template, Default)]
-#[template(path = "components/help.html")]
+#[template(path = "menus/help.html")]
 struct Help {
+    init: bool,
+}
+
+#[derive(Template, Default)]
+#[template(path = "menus/game.html")]
+struct GameMenu {
     init: bool,
 }
 
@@ -121,7 +135,13 @@ struct TermLine {
 #[template(path = "components/modal.html", print = "all")]
 struct Modal {
     init: bool,
-    game: bool,
+    game: Option<u32>,
+}
+
+impl Modal {
+    pub fn game_val(&self) -> Option<u32> {
+        self.game
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -161,10 +181,32 @@ async fn commands(
         return HtmlTemplate(help).into_response();
     }
 
-    let mut modal = Modal::default();
-    if command.command.to_lowercase() == "game" {
-        modal.game = true;
-        return HtmlTemplate(modal).into_response();
+    if command.command.starts_with("game") {
+        let game = GameMenu::default();
+        let mut response = HtmlTemplate(game).into_response();
+
+        let c: Vec<&str> = command.command.split_whitespace().collect();
+        println!("C: {} {:?}", c.len(), c);
+        if c.len() > 1 {
+            println!("game: {:?}", c[1]);
+            match c[1].to_lowercase().as_str() {
+                "dieggle" | "1" => {
+                    response = HtmlTemplate(Modal {
+                        init: false,
+                        game: Some(1),
+                    })
+                    .into_response();
+                }
+                "deathwalk" | "2" => {
+                    println!("DEATHWALK")
+                }
+                _ => {
+                    println!("UNKNOWN")
+                }
+            }
+        }
+
+        return response;
     }
 
     let term = TermLine::default();
