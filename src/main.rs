@@ -63,18 +63,18 @@ async fn main() -> anyhow::Result<()> {
 async fn terminal() -> impl IntoResponse {
     info!("->> {:<12} - terminal", "HANDLER");
 
-    let template = TerminalTemplate { init: true };
+    let template = TerminalTemplate {
+        init: true,
+        game: true,
+    };
     HtmlTemplate(template)
 }
-
-// #[derive(Template)]
-// #[template(path = "components/neofetch.html", print = "all")]
-// struct Neofetch;
 
 #[derive(Template, Default)]
 #[template(path = "pages/terminal.html")]
 struct TerminalTemplate {
     init: bool,
+    game: bool,
 }
 
 struct HtmlTemplate<T>(T);
@@ -117,9 +117,16 @@ struct TermLine {
     init: bool,
 }
 
+#[derive(Template, Default)]
+#[template(path = "components/modal.html", print = "all")]
+struct Modal {
+    init: bool,
+    game: bool,
+}
+
 #[derive(Deserialize, Debug)]
 enum Command {
-    Welcome(String),
+    Welcome,
 }
 
 impl fmt::Display for Command {
@@ -152,6 +159,12 @@ async fn commands(
 
     if command.command.to_lowercase() == "help" {
         return HtmlTemplate(help).into_response();
+    }
+
+    let mut modal = Modal::default();
+    if command.command.to_lowercase() == "game" {
+        modal.game = true;
+        return HtmlTemplate(modal).into_response();
     }
 
     let term = TermLine::default();

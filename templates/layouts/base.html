@@ -4,25 +4,23 @@
     <link href="/assets/main.css" rel="stylesheet" />
     <!-- <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'> -->
     <title>{% block title %}{{ title }}{% endblock %}</title>
-
     <!-- htmx from the unpkg CDN -->
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% block head %}{% endblock %}
   </head>
-  <body class="bg-(--color-bg) p-2 font-mono overflow-y-clip ">
-      <label class="fixed inline-flex justify-between items-center group top-2 right-2 text-xl text-sky-500 dark:text-sky-200">
-        Dark
-        <input type="checkbox" class="peer sr-only" checked />
-        <span
-            hx-on:click="htmx.toggleClass(htmx.find('#root'), 'cat')"
-            class="w-14 h-8 flex items-center shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 after:w-6 after:h-6 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1 peer-checked:group-hover:after:translate-x-5"></span>
-      </label>
-
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+  <body class="overflow-y-clip bg-(--color-bg) font-mono">
+    {% if game %} {% include "components/modal.html" %} {% endif %}
+    <label
+      class="group fixed top-2 right-2 inline-flex items-center justify-between text-xl text-sky-500 dark:text-sky-200"
+    >
+      Dark
+      <input type="checkbox" class="peer sr-only" checked />
+      <span
+        hx-on:click="htmx.toggleClass(htmx.find('#root'), 'cat')"
+        class="ml-4 flex h-8 w-14 shrink-0 items-center rounded-full bg-gray-300 p-1 duration-300 ease-in-out peer-checked:bg-green-400 after:h-6 after:w-6 after:rounded-full after:bg-white after:shadow-md after:duration-300 group-hover:after:translate-x-1 peer-checked:after:translate-x-6 peer-checked:group-hover:after:translate-x-5"
+      ></span>
+    </label>
+    <div id="content">{% block content %}{% endblock %}</div>
   </body>
 </html>

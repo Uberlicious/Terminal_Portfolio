@@ -47,7 +47,7 @@
   }
 
   /* Hide scrollbar for IE, Edge and Firefox
-  -ms-overflow-style: none; /* IE and Edge
+                    -ms-overflow-style: none; /* IE and
   scrollbar-width: none; /* Firefox */
   scrollbar-base-color: var(--color-path);
 }

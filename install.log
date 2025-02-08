@@ -1,0 +1,9 @@
+[08:27:03 2025-01-28] FETCHING Version 2.38.7
+[08:27:03 2025-01-28] CREATING /Users/uber/.spicetify
+[08:27:03 2025-01-28] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.38.7/spicetify-2.38.7-darwin-arm64.tar.gz
+[08:27:04 2025-01-28] EXTRACTING /Users/uber/.spicetify/spicetify.tar.gz
+[08:27:04 2025-01-28] SETTING EXECUTABLE PERMISSIONS TO /Users/uber/.spicetify/spicetify
+[08:27:04 2025-01-28] REMOVING /Users/uber/.spicetify/spicetify.tar.gz
+[08:27:04 2025-01-28] APPENDING /Users/uber/.spicetify to PATH in /Users/uber/.zshrc
+[08:27:04 2025-01-28] spicetify v2.38.7 was installed successfully to /Users/uber/.spicetify
+[08:27:04 2025-01-28] Run 'spicetify --help' to get started

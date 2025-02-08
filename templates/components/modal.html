@@ -1,0 +1,35 @@
+<div
+  id="modal"
+  hx-on:click="htmx.toggleClass(htmx.find('#modal'), 'hidden');htmx.remove(htmx.find('#game'));"
+  class="fixed top-0 left-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black/50"
+  style="top: 0px"
+>
+  <div
+    id="modal_content"
+    class="min-2xl mt-3 flex flex-col items-center justify-items-center rounded-lg border-2 border-solid bg-(--color-bg) p-4 shadow-xl"
+  >
+    <h1 class="justify-self-center text-(--color-text)">Dieggle</h1>
+    <iframe
+      id="game"
+      class="min-h-[828px] min-w-[1536px] flex-1 p-2"
+      frameborder="0"
+      src="https://itch.io/embed-upload/6185097?color=333333"
+      allowfullscreen=""
+      width="1536"
+      height="828"
+    >
+      <a href="https://uberlicious.itch.io/dieggle">Play Dieggle on itch.io</a>
+    </iframe>
+    <div class="flex justify-center">
+      <button
+        id="game_close"
+        class="w-20 rounded bg-blue-500 py-2 font-bold text-white hover:bg-blue-700"
+        hx-on:click="htmx.remove(htmx.find('#modal'));"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+{% include "components/term-line.html" %}
