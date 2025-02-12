@@ -79,12 +79,6 @@ struct TerminalTemplate {
     game: Option<u32>,
 }
 
-impl TerminalTemplate {
-    pub fn game_val(&self) -> Option<u32> {
-        self.game
-    }
-}
-
 struct HtmlTemplate<T>(T);
 
 impl<T> IntoResponse for HtmlTemplate<T>
@@ -126,6 +120,12 @@ struct GameMenu {
 }
 
 #[derive(Template, Default)]
+#[template(path = "menus/projects.html")]
+struct Projects {
+    init: bool,
+}
+
+#[derive(Template, Default)]
 #[template(path = "components/term-line.html")]
 struct TermLine {
     init: bool,
@@ -138,10 +138,11 @@ struct Modal {
     game: Option<u32>,
 }
 
-impl Modal {
-    pub fn game_val(&self) -> Option<u32> {
-        self.game
-    }
+#[derive(Template, Default)]
+#[template(path = "components/history.html")]
+struct History {
+    init: bool,
+    commands: Vec<String>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -181,14 +182,12 @@ async fn commands(
         return HtmlTemplate(help).into_response();
     }
 
-    if command.command.starts_with("game") {
+    if command.command.starts_with("games") {
         let game = GameMenu::default();
         let mut response = HtmlTemplate(game).into_response();
 
         let c: Vec<&str> = command.command.split_whitespace().collect();
-        println!("C: {} {:?}", c.len(), c);
         if c.len() > 1 {
-            println!("game: {:?}", c[1]);
             match c[1].to_lowercase().as_str() {
                 "dieggle" | "1" => {
                     response = HtmlTemplate(Modal {
@@ -198,7 +197,11 @@ async fn commands(
                     .into_response();
                 }
                 "deathwalk" | "2" => {
-                    println!("DEATHWALK")
+                    response = HtmlTemplate(Modal {
+                        init: false,
+                        game: Some(2),
+                    })
+                    .into_response();
                 }
                 _ => {
                     println!("UNKNOWN")
@@ -207,6 +210,18 @@ async fn commands(
         }
 
         return response;
+    }
+
+    if command.command.to_lowercase() == "projects" {
+        return HtmlTemplate(Projects { init: false }).into_response();
+    }
+
+    if command.command.to_lowercase() == "history" {
+        return HtmlTemplate(History {
+            init: false,
+            commands: lock.clone(),
+        })
+        .into_response();
     }
 
     let term = TermLine::default();
