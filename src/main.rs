@@ -126,6 +126,12 @@ struct Projects {
 }
 
 #[derive(Template, Default)]
+#[template(path = "menus/info_cmd.html")]
+struct Info {
+    init: bool,
+}
+
+#[derive(Template, Default)]
 #[template(path = "components/term-line.html")]
 struct TermLine {
     init: bool,
@@ -172,17 +178,17 @@ async fn commands(
 
     let welcome = Welcome::default();
 
-    if command.command.to_lowercase() == "welcome" {
+    if command.command.trim_end().trim_start().to_lowercase() == "welcome" {
         return HtmlTemplate(welcome).into_response();
     }
 
     let help = Help::default();
 
-    if command.command.to_lowercase() == "help" {
+    if command.command.to_lowercase().trim_end().trim_start() == "help" {
         return HtmlTemplate(help).into_response();
     }
 
-    if command.command.starts_with("games") {
+    if command.command.trim_end().trim_start().starts_with("games") {
         let game = GameMenu::default();
         let mut response = HtmlTemplate(game).into_response();
 
@@ -212,16 +218,36 @@ async fn commands(
         return response;
     }
 
-    if command.command.to_lowercase() == "projects" {
+    if command.command.to_lowercase().trim_end().trim_start() == "projects" {
         return HtmlTemplate(Projects { init: false }).into_response();
     }
 
-    if command.command.to_lowercase() == "history" {
+    if command.command.to_lowercase().trim_end().trim_start() == "history" {
+        let commands = lock.clone();
+
+        let history: Vec<String>;
+        if commands.len() > 25 {
+            history = commands[commands.len() - 25..].to_vec();
+        } else {
+            history = commands;
+        }
+
+        let command_history: Vec<String> = history
+            .iter()
+            .rev()
+            .enumerate()
+            .map(|(i, s)| format!("{}: {s}", i + 1))
+            .collect();
+
         return HtmlTemplate(History {
             init: false,
-            commands: lock.clone(),
+            commands: command_history,
         })
         .into_response();
+    }
+
+    if command.command.to_lowercase().trim_end().trim_start() == "info" {
+        return HtmlTemplate(Info { init: false }).into_response();
     }
 
     let term = TermLine::default();
