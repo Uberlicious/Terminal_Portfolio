@@ -48,7 +48,7 @@ async fn main() -> anyhow::Result<()> {
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
         );
     let port = 8000_u16;
-    let listener = tokio::net::TcpListener::bind(format!("127.0.0.1:{}", port))
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port))
         .await
         .unwrap();
 
@@ -98,7 +98,7 @@ where
 }
 
 async fn _hello_from_the_server() -> &'static str {
-    "Hello!"
+    "Terminal Portfolio"
 }
 
 #[derive(Template, Default)]
