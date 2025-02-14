@@ -174,21 +174,23 @@ async fn commands(
     info!("->> {:<12} - commands - {command:?}", "HANDLER");
 
     let mut lock = state.command_history.lock().unwrap();
-    lock.push(command.command.clone());
 
     let welcome = Welcome::default();
 
     if command.command.trim_end().trim_start().to_lowercase() == "welcome" {
+        lock.push(command.command.clone());
         return HtmlTemplate(welcome).into_response();
     }
 
     let help = Help::default();
 
     if command.command.to_lowercase().trim_end().trim_start() == "help" {
+        lock.push(command.command.clone());
         return HtmlTemplate(help).into_response();
     }
 
     if command.command.trim_end().trim_start().starts_with("games") {
+        lock.push(command.command.clone());
         let game = GameMenu::default();
         let mut response = HtmlTemplate(game).into_response();
 
@@ -219,6 +221,7 @@ async fn commands(
     }
 
     if command.command.to_lowercase().trim_end().trim_start() == "projects" {
+        lock.push(command.command.clone());
         return HtmlTemplate(Projects { init: false }).into_response();
     }
 
@@ -234,10 +237,11 @@ async fn commands(
 
         let command_history: Vec<String> = history
             .iter()
-            .rev()
             .enumerate()
             .map(|(i, s)| format!("{}: {s}", i + 1))
             .collect();
+
+        lock.push(command.command.clone());
 
         return HtmlTemplate(History {
             init: false,
@@ -247,6 +251,7 @@ async fn commands(
     }
 
     if command.command.to_lowercase().trim_end().trim_start() == "info" {
+        lock.push(command.command.clone());
         return HtmlTemplate(Info { init: false }).into_response();
     }
 
