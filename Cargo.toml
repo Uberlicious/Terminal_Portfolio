@@ -8,10 +8,10 @@ anyhow = "1.0.95"
 askama = "0.12.1"
 axum = { version = "0.7.9", features = ["macros"] }
 serde = { version = "1.0.217", features = ["derive"] }
-tokio = { version = "1.43.0", features = ["full"] }
+tokio = { version = "1.43", features = ["full"] }
 tower = "0.5.2"
 tower-http = { version = "0.5.2", features = ["fs", "set-header", "cors"] }
 tower-sessions = "0.13.0"
-time = "0.3"
+time = { version = "0.3.36", features = ["formatting", "parsing", "macros"] }
 tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
