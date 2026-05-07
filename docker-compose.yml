@@ -1,0 +1,10 @@
+services:
+  portfolio:
+    build: .
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/terminal-portfolio:latest
+    container_name: portfolio-app
+    ports:
+      - "8000:8000"
+    restart: always
+    environment:
+      - RUST_LOG=terminal_portfolio=info
