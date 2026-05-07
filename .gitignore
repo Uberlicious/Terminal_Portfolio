@@ -1,5 +1,6 @@
 /target
 /node_modules
 /dist
-/assets/main.css
+.DS_Store
+templates/.DS_Store
 .DS_Store
