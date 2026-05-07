@@ -6,5 +6,7 @@ services:
     ports:
       - '8000:8000'
     restart: always
+    labels:
+      - "io.containers.autoupdate=image"
     environment:
       - RUST_LOG=terminal_portfolio=info

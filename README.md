@@ -31,6 +31,14 @@ This project uses GitHub Actions to automatically build and push a Docker image 
    podman-compose up -d
    ```
 
+4. **Enable Auto-updates:**
+   To make the server automatically pull and restart when a new image is pushed to GHCR, enable the Podman auto-update timer:
+   ```bash
+   # Start the timer (checks daily by default)
+   systemctl --user enable --now podman-auto-update.timer
+   ```
+   *Note: This works because of the `io.containers.autoupdate=image` label in `compose.yml`.*
+
 ## Compile locally
 compile tailwind: `pnpm dev:css` or `pnpm build:css`
 
