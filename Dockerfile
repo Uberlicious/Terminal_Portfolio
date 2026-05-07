@@ -3,12 +3,12 @@ FROM node:22-slim AS css-builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 # Install pnpm and dependencies
-RUN corepack enable && pnpm install --frozen-lockfile --ignore-scripts
+RUN corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile --ignore-scripts
 # Copy Tailwind config and styles
 COPY styles/ ./styles/
 COPY templates/ ./templates/
-# Generate the production CSS
-RUN ./node_modules/.bin/tailwindcss -i styles/tailwind.css -o assets/main.css --minify
+# Ensure assets directory exists and generate the production CSS
+RUN mkdir -p assets && pnpm build:css
 
 # --- Stage 2: Build the Rust Backend ---
 FROM rust:1.84-slim AS builder
