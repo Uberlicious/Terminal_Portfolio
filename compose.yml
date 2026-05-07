@@ -1,12 +1,10 @@
 services:
   portfolio:
-    build: .
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/terminal-portfolio:latest
+    # build: . # Only needed for local development
+    image: ghcr.io/${IMAGE_NAME:-uberlicious/terminal_portfolio}:latest
     container_name: portfolio-app
     ports:
       - '8000:8000'
     restart: always
-    labels:
-      - 'io.containers.autoupdate=image'
     environment:
       - RUST_LOG=terminal_portfolio=info
