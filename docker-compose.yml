@@ -4,7 +4,9 @@ services:
     image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/terminal-portfolio:latest
     container_name: portfolio-app
     ports:
-      - "8000:8000"
+      - '8000:8000'
     restart: always
+    labels:
+      - 'io.containers.autoupdate=image'
     environment:
       - RUST_LOG=terminal_portfolio=info
