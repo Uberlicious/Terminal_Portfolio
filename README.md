@@ -9,6 +9,6 @@ This is my personal portfolio website.
 * Tailwind
 
 ## Compile locally
-compile tailwind: `pnpm dlx @tailwindcss/cli -i styles/tailwind.css -o assets/main.css --watch`
+compile tailwind: `pnpm dev:css` or `pnpm build:css`
 
 run app: `cargo watch -x run`

@@ -33,26 +33,51 @@
 }
 
 @utility no-scrollbar {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    /* background: transparent; */
+  &::-webkit-scrollbar {
+    display: none;
   }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-path);
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox
-                    -ms-overflow-style: none; /* IE and
+  -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  scrollbar-base-color: var(--color-path);
+}
+
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@keyframes spin-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@utility animate-spin-y {
+  animation: spin-y 10s linear infinite;
 }
 
 @layer base {
+  :root {
+    --color-bg: #eff1f5;
+    --color-user: #9ca0b0;
+    --color-path: #1e66f5;
+    --color-arrow: #ea76cb;
+    --color-text: #4c4f69;
+    --color-yellow: #df8e1d;
+    --color-green: #40a02b;
+  }
+
+  .cat {
+    --color-bg: #24273a;
+    --color-path: #8aadf4;
+    --color-user: #6e738d;
+    --color-arrow: #f5bde6;
+    --color-text: #cad3f5;
+    --color-yellow: #eed49f;
+    --color-green: #a6da95;
+  }
+
   @font-face {
     font-family: 'JetBrains Mono';
     src:
@@ -63,25 +88,5 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-  }
-
-  [class=''] {
-    --color-bg: #eff1f5;
-    --color-user: #9ca0b0;
-    --color-path: #1e66f5;
-    --color-arrow: #ea76cb;
-    --color-text: #4c4f69;
-    --color-yellow: #df8e1d;
-    --color-green: #40a02b;
-  }
-
-  [class~='cat'] {
-    --color-bg: #24273a;
-    --color-path: #8aadf4;
-    --color-user: #6e738d;
-    --color-arrow: #f5bde6;
-    --color-text: #cad3f5;
-    --color-yellow: #eed49f;
-    --color-green: #a6da95;
   }
 }

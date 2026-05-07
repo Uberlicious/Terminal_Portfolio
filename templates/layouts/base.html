@@ -2,7 +2,7 @@
 <html lang="en" id="root" class="cat">
   <head>
     <link href="/assets/main.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="assets/JM.png" />
+    <link rel="icon" type="image/x-icon" href="/assets/JM.png" />
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <!-- htmx from the unpkg CDN -->
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
@@ -12,7 +12,7 @@
   <body class="overflow-y-clip bg-(--color-bg) font-mono">
     {% if modal %} {% include "components/modal.html" %} {% endif %}
     <label
-      class="group fixed top-2 right-2 inline-flex items-center justify-between text-xl text-sky-500 dark:text-sky-200"
+      class="group fixed top-4 right-4 left-auto z-50 inline-flex items-center justify-between text-xl text-sky-500 dark:text-sky-200"
     >
       Dark
       <input type="checkbox" class="peer sr-only" checked />

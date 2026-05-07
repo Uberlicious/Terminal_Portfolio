@@ -1,8 +1,10 @@
 {
-  "name": "axum-htmx-askama-template",
+  "name": "terminal-portfolio",
   "version": "1.0.0",
   "license": "ISC",
   "scripts": {
+    "dev:css": "tailwindcss -i styles/tailwind.css -o assets/main.css --watch",
+    "build:css": "tailwindcss -i styles/tailwind.css -o assets/main.css --minify",
     "format": "prettier --write --ignore-unknown ."
   },
   "devDependencies": {

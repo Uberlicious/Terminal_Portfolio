@@ -1,12 +1,13 @@
 {% if game.is_some() %}
 <div
   id="modal"
-  hx-on:click="htmx.toggleClass(htmx.find('#modal'), 'hidden');htmx.remove(htmx.find('#game'));"
+  hx-on:click="if (event.target === this) htmx.remove(this);"
   class="fixed top-0 left-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black/50"
   style="top: 0px"
 >
   <div
     id="modal_content"
+    hx-on:click="event.stopPropagation();"
     class="min-2xl mt-3 flex flex-col items-center justify-items-center rounded-lg border-2 border-solid bg-(--color-bg) p-4 shadow-xl"
   >
     {% if game == Some(1) %}
@@ -31,7 +32,13 @@
       width="960"
       height="665"
     >
-      <a class="underline" rel="noopener noreferrer" target="_blank" href="https://uberlicious.itch.io/deathwalk">Play DeathWalk on itch.io</a>
+      <a
+        class="underline"
+        rel="noopener noreferrer"
+        target="_blank"
+        href="https://uberlicious.itch.io/deathwalk"
+        >Play DeathWalk on itch.io</a
+      >
     </iframe>
     {% endif %}
     <div class="flex justify-center">

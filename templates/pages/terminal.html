@@ -8,36 +8,40 @@
   >
     <div
       hx-on:click="
-          const commands = document.querySelectorAll('#command:last-of-type');
-          if (commands.length > 0) {
-              commands[commands.length - 1].focus()
+          const inputs = document.querySelectorAll('.terminal-input');
+          if (inputs.length > 0) {
+              inputs[inputs.length - 1].focus()
           }
           "
-      class="no-scrollbar overla w-1/2 flex-1 shrink-0 scroll-m-0 overflow-y-scroll p-2"
+      class="no-scrollbar w-1/2 flex-1 shrink-0 scroll-m-0 overflow-y-scroll p-2"
     >
       {% include "components/term-line.html" %}
     </div>
   </div>
-</div>
-<!-- Fixed half -->
-<div
-  class="@container/outer flex w-1/2 flex-1 justify-center overflow-hidden max-lg:hidden"
->
+  <!-- Fixed half -->
   <div
-    class="@container flex h-full w-full flex-1 justify-end p-2 pt-6 @max-[44.5rem]/outer:hidden"
+    class="@container/outer flex w-1/2 flex-1 justify-center overflow-hidden max-lg:hidden"
   >
-    <div class="content-center @max-[43.25rem]:hidden">
-      {% include "components/jm_full.html" %}
+    <div
+      class="perspective-1000 @container flex h-full w-full flex-1 justify-end p-2 pt-6 @max-[44.5rem]/outer:hidden"
+    >
+      <div class="animate-spin-y content-center @max-[43.25rem]:hidden">
+        {% include "components/jm_full.html" %}
+      </div>
+      <div
+        class="animate-spin-y content-center @max-[30rem]:hidden @min-[43.25rem]:hidden"
+      >
+        {% include "components/jm_70.html" %}
+      </div>
+      <div
+        class="animate-spin-y content-center @max-[21.25rem]:hidden @min-[30rem]:hidden"
+      >
+        {% include "components/jm_50.html" %}
+      </div>
     </div>
-    <div class="content-center @max-[30rem]:hidden @min-[43.25rem]:hidden">
-      {% include "components/jm_70.html" %}
+    <div class="left-0 w-1/2 content-center p-3">
+      {% include "components/term-info.html" %}
     </div>
-    <div class="content-center @max-[21.25rem]:hidden @min-[30rem]:hidden">
-      {% include "components/jm_50.html" %}
-    </div>
-  </div>
-  <div class="left-0 w-1/2 content-center p-3">
-    {% include "components/term-info.html" %}
   </div>
 </div>
 {% endblock %}
