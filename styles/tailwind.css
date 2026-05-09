@@ -8,8 +8,9 @@
   --font-*: initial;
   --font-mono: 'JetBrains Mono';
   --font-mono--font-feature-settings: 'zero';
-  --font-sans: Inter var, ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans:
+    Inter var, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   --background-image-egg: url('/assets/egg-bg.svg');
 }
@@ -66,6 +67,7 @@
     --color-text: #4c4f69;
     --color-yellow: #df8e1d;
     --color-green: #40a02b;
+    --color-toolbar: #dce0e8;
   }
 
   .cat {
@@ -76,6 +78,29 @@
     --color-text: #cad3f5;
     --color-yellow: #eed49f;
     --color-green: #a6da95;
+    --color-toolbar: #1e2030;
+  }
+
+  .nord {
+    --color-bg: #2e3440;
+    --color-path: #88c0d0;
+    --color-user: #4c566a;
+    --color-arrow: #b48ead;
+    --color-text: #eceff4;
+    --color-yellow: #ebcb8b;
+    --color-green: #a3be8c;
+    --color-toolbar: #242933;
+  }
+
+  .gruvbox {
+    --color-bg: #282828;
+    --color-path: #458588;
+    --color-user: #928374;
+    --color-arrow: #b16286;
+    --color-text: #ebdbb2;
+    --color-yellow: #fabd2f;
+    --color-green: #b8bb26;
+    --color-toolbar: #1d2021;
   }
 
   @font-face {

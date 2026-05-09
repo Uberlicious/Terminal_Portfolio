@@ -1,0 +1,39 @@
+<div
+  class="flex items-center justify-between border-b border-(--color-user)/20 bg-(--color-toolbar) px-4 py-2 select-none"
+>
+  <div class="flex space-x-2">
+    <div class="h-3 w-3 rounded-full border border-black/10 bg-[#ff5f56]"></div>
+    <div class="h-3 w-3 rounded-full border border-black/10 bg-[#ffbd2e]"></div>
+    <div class="h-3 w-3 rounded-full border border-black/10 bg-[#27c93f]"></div>
+  </div>
+
+  <div
+    class="absolute left-1/2 hidden -translate-x-1/2 text-xs font-medium text-(--color-user) sm:block"
+  >
+    terminal — -zsh — 80x24
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <div class="group relative">
+      <select
+        id="theme-select"
+        hx-on:change="document.getElementById('root').className = this.value; localStorage.setItem('theme', this.value)"
+        class="cursor-pointer appearance-none border-none bg-transparent bg-none py-0 pr-6 pl-0 text-xs font-medium text-(--color-user) focus:ring-0"
+      >
+        <option value="">Latte</option>
+        <option value="cat">Macchiato</option>
+        <option value="nord">Nord</option>
+        <option value="gruvbox">Gruvbox</option>
+      </select>
+      <div
+        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-(--color-user)"
+      >
+        <svg class="h-3 w-3 fill-current" viewBox="0 0 20 20">
+          <path
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

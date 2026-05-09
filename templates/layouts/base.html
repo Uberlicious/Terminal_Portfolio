@@ -7,20 +7,31 @@
     <!-- htmx from the unpkg CDN -->
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        const theme = localStorage.getItem('theme') || 'cat';
+        document.documentElement.className = theme;
+      })();
+    </script>
     {% block head %}{% endblock %}
   </head>
   <body class="overflow-y-clip bg-(--color-bg) font-mono">
     {% if modal %} {% include "components/modal.html" %} {% endif %}
-    <label
-      class="group fixed top-4 right-4 left-auto z-50 inline-flex items-center justify-between text-xl text-sky-500 dark:text-sky-200"
-    >
-      Dark
-      <input type="checkbox" class="peer sr-only" checked />
-      <span
-        hx-on:click="htmx.toggleClass(htmx.find('#root'), 'cat')"
-        class="ml-4 flex h-8 w-14 shrink-0 items-center rounded-full bg-gray-300 p-1 duration-300 ease-in-out peer-checked:bg-green-400 after:h-6 after:w-6 after:rounded-full after:bg-white after:shadow-md after:duration-300 group-hover:after:translate-x-1 peer-checked:after:translate-x-6 peer-checked:group-hover:after:translate-x-5"
-      ></span>
-    </label>
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div class="flex h-screen flex-col">
+      {% include "components/toolbar.html" %}
+      <div id="content" class="flex-1 overflow-hidden">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const theme = localStorage.getItem('theme') || 'cat';
+        const select = document.getElementById('theme-select');
+        if (select) {
+          select.value = theme;
+        }
+      })();
+    </script>
   </body>
 </html>
