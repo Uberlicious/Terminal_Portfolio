@@ -198,7 +198,7 @@ async fn commands(session: Session, Form(request): Form<CommandRequest>) -> Resp
         "help" => HtmlTemplate(Help::default()).into_response(),
         "projects" => HtmlTemplate(Projects::default()).into_response(),
         "info" => HtmlTemplate(Info::default()).into_response(),
-        "neofetch" => HtmlTemplate(Neofetch::default()).into_response(),
+        "neofetch" => HtmlTemplate(Neofetch).into_response(),
         "history" => {
             let history_limit = 25;
             let start_idx = history.len().saturating_sub(history_limit);
