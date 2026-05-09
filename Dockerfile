@@ -11,7 +11,7 @@ COPY templates/ ./templates/
 RUN mkdir -p assets && pnpm build:css
 
 # --- Stage 2: Build the Rust Backend ---
-FROM rust:1.84-slim AS builder
+FROM rust:1.88-slim AS builder
 WORKDIR /app
 # Install build dependencies
 RUN apt-get update && apt-get install -y pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
